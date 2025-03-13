@@ -10,6 +10,11 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
+
+# Esse arquivo serve para personalizarmos o django, por exemplo,
+# nesse arquivo podemos definir qual banco de dados será utilizado
+
+
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -37,6 +42,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # Todos os apps criados no django 
+    # devem ser colocados nesta parte 
+    # do settings, no nosso caso vamos
+    # adicionar o app que criamos.
+    'learning_logs',
 ]
 
 MIDDLEWARE = [
