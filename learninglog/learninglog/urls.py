@@ -14,9 +14,20 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
+# Ese arquivo irá possuir as urls que o desenvolvedor pode
+# acessar no desenvolvimento da aplicação. O arquivo urls.py
+# é responsável por mapear URLs (endereços web) para as views
+# (funções ou  classes) correspondentes no seu aplicativo 
+# Django. Quando um usuário acessa uma URL no seu site, o
+# Django usa o urls.py para determinar qual view deve ser
+# executada para processar a solicitação.
 from django.contrib import admin
 from django.urls import path
 
 urlpatterns = [
+    
+    # URL para administradores (desenvolvedores) do sistema
+    # acessarem o painel administrativo do django.
     path('admin/', admin.site.urls),
 ]
