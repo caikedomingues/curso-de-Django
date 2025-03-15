@@ -22,12 +22,29 @@ Including another URLconf
 # Django. Quando um usuário acessa uma URL no seu site, o
 # Django usa o urls.py para determinar qual view deve ser
 # executada para processar a solicitação.
+
+# Import do painel administrativo do django
 from django.contrib import admin
-from django.urls import path
+
+# Import dom path que serve para indicar o
+# o caminho(rota/link) que o django deve executar.
+# O include serve para incluirmos rotas e urls no
+# nosso sistema.
+from django.urls import path, include
 
 urlpatterns = [
     
     # URL para administradores (desenvolvedores) do sistema
     # acessarem o painel administrativo do django.
     path('admin/', admin.site.urls),
+    
+    # Aqui basicamente vamos adicionar o caminho do aplicativo 
+    # como padrão, ou seja, quando a  raiz não tiver mais 
+    # nada após a barra, o sistema ira direcionar o django
+    # para o nosso sistema. Para realizae essa ação, primeiro
+    # vamos verificar se a url está vazia, caso ela esteja vazia
+    # iremos passar para o include o caminho do arquivo urls.py
+    # da pasta do aplicativo leaning.logs. 
+    path('', include('learning_logs.urls'))
+   
 ]
