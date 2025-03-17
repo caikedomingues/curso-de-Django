@@ -19,7 +19,11 @@
 # JSON, uma imagem ou qualquer outro tipo de conteúdo.
 
 
-
+# É uma ferramenta muito útil no Django para gerar respostas HTTP,
+# que são o que o navegador da web recebe do servidor. Em termos
+# simples, ela pega um modelo HTML (um arquivo com a estrutura da
+# sua página web), combina com os dados que você deseja exibir e 
+# retorna uma página web completa para o usuário.
 from django.shortcuts import render
 
 # Create your views here.
@@ -30,6 +34,8 @@ from django.shortcuts import render
 # a requisição HTTP feita pelo usuário, como o método HTTP (GET, POST
 # ,etc), os dados enviados pelo usuário e outros detalhes.
 def index(request):
+    
+    
     """Página principal do learning_logs"""
     
     # Ira retornar a gunção render do Django para renderizar um 
@@ -42,3 +48,4 @@ def index(request):
     # variáveis ou tags que de template por seus valores correspondentes
     # Retorna uma resposta HTTP contendo o HTML renderizado.
     return render(request, 'learning_logs/index.html')
+

@@ -20,6 +20,8 @@ app_name = 'learning_logs'
 
 urlpatterns = [
 
+    # Aqui basicamente, vamos verificar se a url raiz está vazia,
+    # se ela estiver, vamos chamar o método index.
     path('',views.index),
     
     
