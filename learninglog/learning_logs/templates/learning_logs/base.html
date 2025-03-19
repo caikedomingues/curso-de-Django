@@ -1,0 +1,37 @@
+
+
+<!--Basicamente este arquivo irá conter todos os elementos que 
+queremos exibir em todas as páginas. O conceito é parecido com
+a orientação a objetos, onde esse arquivo será a classe mãe 
+e todos os outros arquivos irão herdar o conteúdo desse arquivo-->
+
+<!--No Django quando queremos passar instruções em python utilizamos
+as chaves e porcentagens com o comando que queremos passar. No nosso
+caso, vamos passar o comando url que estará acompanhado do  nome da
+nossa rota (definida no urls.py). A idéia é que ao clicar no titulo,
+o usuário volte para a página incial(index.html)-->
+<a href="{% url 'index'%}"><h1>Learning Log</h1>
+
+
+<!--Este trecho define um bloco de conteúdo em um template Django.
+Blocos são áreas em um template base que podem ser substituidas ou
+estendidas por templates filhos.
+
+Block: É uma palavra chave do Django Template Language (DTL) que indica
+a criação de um bloco.
+
+Content: É o nome do bloco. Você pode escolher qualquer nome significativo. Este nome é usado para referenciar o bloco em
+templates filhos.
+
+endblock: Indica fim do bloco. O nome do endblock deve corresponder
+ao nome do bloco que você abriu (no nosso caso, o block content)base.
+
+Tudo o que estiver entre block e endblock no template base será O
+contéudo padrão do bloco. Se um template filho não substituir este
+bloco, o conteúdo será padrão
+
+-->
+{%block content%}{%endblock content%}
+
+
+

@@ -14,15 +14,16 @@ from django.urls import path
 # usaremos o ".") o arquivo views.
 from . import views
 
-# Vamos Adicionar isso para evitar conflitos de nomes de rotas
-app_name = 'learning_logs'
-
 
 urlpatterns = [
 
     # Aqui basicamente, vamos verificar se a url raiz está vazia,
-    # se ela estiver, vamos chamar o método index.
-    path('',views.index),
+    # se ela estiver, vamos chamar o método index. Vamos passar
+    # também o parâmetro name que irá receber como o valor o nome
+    # 'index' que será a referência do nosso link no HTML, dessa
+    # maneira não precisamos escrever a rota inteira nos templates
+    # HTML.
+    path('',views.index, name='index'),
     
     
 ]

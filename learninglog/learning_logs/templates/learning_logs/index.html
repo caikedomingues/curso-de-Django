@@ -1,5 +1,4 @@
 
-<!DOCTYPE html>
 <html lang="pt-br">
 
     <head>
@@ -9,9 +8,21 @@
     </head>
 
     <body>
-        <h1>Learning log</h1>
 
-        <p> Essa aplicação te ajudará a organizar seus estudos</h1>
+        <!--Agora que ja trabalhamos o arquivo base, vamos extende-lo
+        aqui no index.html para ele poder herdar o conteúdo do arquivo
+        base. Para isso, vamos abrir chaves e utilizar o comando extends do django que irá ser acompanhado do caminho do arquivo 
+        base.html que esta dentro da pasta do sistema (o 
+        que fica dentro da pasta "templates") -->
+
+        {%extends "learning_logs/base.html"%}
+       
+
+        {%block content%}
+            <p>Essa aplicação te ajudará a organizar os seus estudos</p>
+        {%endblock content%}
+        
+        
     </body>
 
 </html>
