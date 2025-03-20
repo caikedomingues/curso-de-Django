@@ -1,0 +1,42 @@
+
+<!--Import do arquivo base.html com o conteúdo padrão de todas
+as páginas-->
+
+{% extends 'learning_logs/base.html'%}
+
+{%block content%}
+    <!--Conteúdo espeicifico da página topic-->
+
+    <!--Vamos passar no titulo a variável topic(indice do
+    dicionário context que contem o  nome dos tópicos)-->
+    <h3>Tópico: {{topic}}</h3>
+
+    <p>Entradas:</p>
+
+        <!--Agora vamos criar uma lista não ordenada que ira conter
+        as entradas do tópico-->
+        <ul>
+
+            <!--Vamos percorrer o indice entries do dicionário context com o objetivo de imprimir a lista de dados na página-->
+            {%for entry in entries%}
+                <!--Criação da lista de entradas-->
+                <li>
+                    <!--Agora passaremos em cada paragrafo a variável 
+                    entry contendo a data e o texto formatados.-->
+                    <p>{{entry.date_add | date:'M d, Y H: i'}}</p>
+                    <p>{{entry.text | linebreaks}}</p>
+               </li>
+            
+            <!--Caso o dicionário esteja vázio, vamos imprimir uma mensagem padrão-->
+            {%empty%}
+
+                <!--Mensagem padrão-->
+                <li>Não há entradas</li>
+            
+            <!--Fim do loop-->
+            {%endfor%}
+
+        </ul>
+    </p>
+
+{%endblock content%}

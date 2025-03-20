@@ -7,6 +7,8 @@ base.html que contém o contéudo que deverá aparecer em todas as páginas do s
 
 {%block content%}
 
+    <h2>Tópicos:</h2>
+
     <!--Aqui iremos colocar todo o contéudo que será especifico dessa
     página, no nosso caso os topicos cadastrados no banco de dados.-->
 
@@ -14,13 +16,13 @@ base.html que contém o contéudo que deverá aparecer em todas as páginas do s
     <ul>
         <!--Agora queremos apresentar todas os dados cadastrados
         na tabela topics, vamos criar um for que irá percorrer
-        toda a tabela com o objetivo de imprimir todos os dados
-        cadastrados.-->
+        toda o dicionário context com o objetivo de imprimir todos os dados cadastrados.-->
 
         <!--Em Django, quando queremos passar uma instrução em python
        em um template HTML abrimos chave e porcentagem para escrever o comando python.-->
 
-        <!--For que ira percorrer a tabela topic-->
+        <!--For que ira percorrer o indice topics do dicionario
+        context-->
         {%for topic in topics %}
             <!--Lista que ira apresentar os dados da tabela Topic.
             Em Django, quando queremos ler uma variável python,
@@ -28,7 +30,7 @@ base.html que contém o contéudo que deverá aparecer em todas as páginas do s
             <li>{{topic}}</li>
 
         <!--O empty significa vázio e irá mostrar um texto padrão
-        caso não haja dados na tabela Topic.-->
+        caso não haja dados no dicionário topic.-->
         {%empty%}
 
             <!--Mensagem padrão-->

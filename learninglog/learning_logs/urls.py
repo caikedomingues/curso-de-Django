@@ -29,7 +29,15 @@ urlpatterns = [
     # apresentar os tópicos ja cadastrados no banco de dados.
     # Agora, sempre que colocarmos a palavra 'topics' após
     # a barra da url raiz, iremos acessar essa nova página.
-    path('topics', views.topics, name='topics')
+    path('topics', views.topics, name='topics'),
+    
+    # Criação da rota que irá levar o usuário para  a página
+    # de um tópico especifico. Para isso será necessário passar
+    # como parametro o id do tópico que queremos acessar. Para
+    # capturar o id, vamos criar na rota da página uma variável
+    # que irá armazenar esses valores.
+    path('topic/<topic_id>/', views.topic, name='topic'),
+    
     
     
     

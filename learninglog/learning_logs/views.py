@@ -32,6 +32,7 @@ from django.shortcuts import render
 # models(que esta dentro de learning_log, por isso usamos
 # o ponto) a classe (tabela) Topic.
 from .models import Topic
+
 # Create your views here.
 
 # def index(request): Esta linha define a função chamada index.
@@ -82,3 +83,32 @@ def topics(request):
     return render(request, 'learning_logs/topics.html', context)
     
     
+# função que ira renderizar a página de tópicos especificos, só que
+# dessa vez ela recebera 2 aegumentos: o request (para requisições) e
+# o topic_id (que irá armazenar o id informado na rota)
+def topic(request, topic_id):
+        
+        """Mostra um único assunto e todas as suas entradas"""
+
+        # Como queremos pegar apenas os id dos dados, vamos 
+        # usar o  método get que ira receber como argumento
+        # a coluna id com o valor passado na rota.
+        topic = Topic.objects.get(id = topic_id)
+
+        # Como Topic é chave estrangeira da tabela Entry,
+        # vamos usar a tabela topic para acessar a tabela 
+        # Entry para ordenar os dados em ordem decrescente
+        # (do mais recente ao mais antigo). O sinal - serve
+        # para indicar ao order_by que ele deve organizar de
+        # maneira inversa.
+        entries = topic.entry_set.order_by('-date_add')
+        
+        # Após organizar os dados, vamos criar um dicionario que irá
+        # conter o tópico e suas entradas. Usaremos essas variaveis
+        # ('topic' e 'entries') para acessar os valores das tabelas
+        # no HTML.
+        context = {'topic': topic, 'entries': entries}
+        
+        # Retorno com a renderização do Template Html contendo a 
+        # requisição, o caminho para o arquivo (em templates/learning_logs) e o dicionário com os valores
+        return render(request, 'learning_logs/topic.html', context)
