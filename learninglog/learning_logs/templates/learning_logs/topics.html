@@ -1,0 +1,40 @@
+
+<!--Agora que criamos o arquivo, vamos importar/extender o template mãe
+base.html que contém o contéudo que deverá aparecer em todas as páginas do sistema.-->
+
+{% extends "learning_logs/base.html"%}
+
+
+{%block content%}
+
+    <!--Aqui iremos colocar todo o contéudo que será especifico dessa
+    página, no nosso caso os topicos cadastrados no banco de dados.-->
+
+    <!--Primeiro, vamos criar uma lista que irá conter todos os tópicos-->
+    <ul>
+        <!--Agora queremos apresentar todas os dados cadastrados
+        na tabela topics, vamos criar um for que irá percorrer
+        toda a tabela com o objetivo de imprimir todos os dados
+        cadastrados.-->
+
+        <!--Em Django, quando queremos passar uma instrução em python
+       em um template HTML abrimos chave e porcentagem para escrever o comando python.-->
+
+        <!--For que ira percorrer a tabela topic-->
+        {%for topic in topics %}
+            <!--Lista que ira apresentar os dados da tabela Topic.
+            Em Django, quando queremos ler uma variável python,
+            abrimos 2 chaves e escrevemos o nome dessa variável-->
+            <li>{{topic}}</li>
+
+        <!--O empty significa vázio e irá mostrar um texto padrão
+        caso não haja dados na tabela Topic.-->
+        {%empty%}
+
+            <!--Mensagem padrão-->
+            <li>Não há tópicos adicionados.</li>
+
+        <!--O endfor representa o fim do loop  for-->
+        {%endfor%}
+    </ul>
+{% endblock content%}

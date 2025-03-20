@@ -25,5 +25,13 @@ urlpatterns = [
     # HTML.
     path('',views.index, name='index'),
     
+    # Vamos criar mais uma rota para a view (página) que irá
+    # apresentar os tópicos ja cadastrados no banco de dados.
+    # Agora, sempre que colocarmos a palavra 'topics' após
+    # a barra da url raiz, iremos acessar essa nova página.
+    path('topics', views.topics, name='topics')
+    
+    
+    
     
 ]

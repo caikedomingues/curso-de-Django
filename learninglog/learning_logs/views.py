@@ -26,6 +26,12 @@
 # retorna uma página web completa para o usuário.
 from django.shortcuts import render
 
+
+# Import do arquivo que contem o banco de dados. Basicamete
+# estamos dizendo que queremos acessar dentro do arquivo
+# models(que esta dentro de learning_log, por isso usamos
+# o ponto) a classe (tabela) Topic.
+from .models import Topic
 # Create your views here.
 
 # def index(request): Esta linha define a função chamada index.
@@ -49,3 +55,30 @@ def index(request):
     # Retorna uma resposta HTTP contendo o HTML renderizado.
     return render(request, 'learning_logs/index.html')
 
+
+# Função que irá renderizar o template html que irá conter os tópicos
+# cadastrados no banco de dados. Vale lembrar que por padrão os métodos
+# do view devem receber como argumento o "request" que possibilita que
+# view realize requisições 
+def topics(request):
+
+    """Mostra todos os assuntos"""
+    
+    # Variável que ira conter a classe Topic que terá como objetivo
+    # chamar o método objects.order_by que irá receber como argumento
+    # o nome da coluna que será o padrão de organização dos dados.
+    topics = Topic.objects.order_by('date_added')
+    
+    # Após a organização dos dados, vamos criar um dicionário
+    # que terá como objetivo mostrar os dados cadastrados na
+    # tabela Topic.
+    context = {'topics':topics}
+    
+    # Por último vamos retornar o método render que ira conter o caminho
+    # do template html (que estara na pasta templates/learning_logs)
+    # e o request que fará a requisição. O render é responsável por 
+    # renderizar a página HTML.Também retornaremos a variável context com
+    # o objetivo de mostrar os seus valores na página.
+    return render(request, 'learning_logs/topics.html', context)
+    
+    

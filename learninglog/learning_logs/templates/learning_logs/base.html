@@ -10,7 +10,7 @@ as chaves e porcentagens com o comando que queremos passar. No nosso
 caso, vamos passar o comando url que estará acompanhado do  nome da
 nossa rota (definida no urls.py). A idéia é que ao clicar no titulo,
 o usuário volte para a página incial(index.html)-->
-<a href="{% url 'index'%}"><h1>Learning Log</h1>
+<a href="{% url 'index'%}"><h1>Learning Log</h1></a>
 
 
 <!--Este trecho define um bloco de conteúdo em um template Django.
@@ -28,10 +28,13 @@ ao nome do bloco que você abriu (no nosso caso, o block content)base.
 
 Tudo o que estiver entre block e endblock no template base será O
 contéudo padrão do bloco. Se um template filho não substituir este
-bloco, o conteúdo será padrão
+bloco, o conteúdo será padrão.
 
 -->
 {%block content%}{%endblock content%}
+
+
+
 
 
 
