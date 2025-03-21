@@ -1,0 +1,42 @@
+
+
+<!--Import do arquivo base.html que irá conter o conteúdo padrão
+de todas as páginas-->
+
+{%extends 'learning_logs/base.html'%}
+
+
+{%block content%}
+
+    <!--Aqui iremos criar todo o conteúdo especifico dessa página-->
+
+    <!--Criação do formulário de inserção de dados:
+    O formulário irá enviar os dados para a própria
+    página (por isso colocamos a rota da view de formulários)
+    e o metodo será um POST, para possibilitar o envio de dados -->
+    <form action="{%url 'new_topic'%}" method="post">
+
+        <!--Esta é uma tag de template Django que gera um csrf_token
+        CSFR (Cross-Site-Request Forgery). O CSRF é uma vulnerabilidade
+        de segurança que permite que sites maliciosos enviem solicitações não autorizadas em nome do usuário. O Django
+        usa tokens CSRF para proteger o sistema contra essa vulnerabilidade, garantindo que as solicitações POST 
+        venham do próprio site.-->
+        {%csrf_token%}
+
+        <!--Form: É o objeto que foi passado do view para o template
+        no dicionário contexto
+        
+        as_p: É um método do objeto de formulário que renderiza cada campo do formulário como um parágrafo (<p>). Isso é uma maneira conveniente de exibir o formulário com formatação básica.
+        -->
+        {{form.as_p}}
+
+        <!--Botão do tipo submit que tem como objetivo enviar os dados
+        informados pelos usuários.-->
+        <button name="submit" > Adicionar</button>
+
+
+
+    </form>
+
+
+{%endblock content%}

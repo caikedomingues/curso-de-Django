@@ -38,6 +38,10 @@ urlpatterns = [
     # que irá armazenar esses valores.
     path('topic/<topic_id>/', views.topic, name='topic'),
     
+     # Vamos criar a rota do nosso formulário criado no arquivo
+    # forms.py
+    path('new_topic', views.new_topic, name='new_topic'),
+    
     
     
     

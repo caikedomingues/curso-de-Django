@@ -185,5 +185,7 @@ def new_topic(request):
     
     # Função que irá renderizar o template HTML, realizar as requisições e possibilitar o uso do dicionário context
     return render(request, 'learning_logs/new_topic.html', context)
+
+    
     
     

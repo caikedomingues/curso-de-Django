@@ -48,4 +48,8 @@ base.html que contém o contéudo que deverá aparecer em todas as páginas do s
         <!--O endfor representa o fim do loop  for-->
         {%endfor%}
     </ul>
+
+    <!--Aqui vamos criar um link para a página de adicionar tópicos-->
+
+    <a href="{%url 'new_topic'%}">Adicionar tópico</a>
 {% endblock content%}

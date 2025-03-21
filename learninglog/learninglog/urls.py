@@ -46,9 +46,5 @@ urlpatterns = [
     # iremos passar para o include o caminho do arquivo urls.py
     # da pasta do aplicativo leaning.logs. 
     path('', include('learning_logs.urls'))
-    
-    # Vamos criar a rota do nosso formulário criado no arquivo
-    # forms.py
-     path('new_topic', views.new_topic, name='new_topic')
    
 ]
