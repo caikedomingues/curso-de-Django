@@ -10,7 +10,12 @@ as chaves e porcentagens com o comando que queremos passar. No nosso
 caso, vamos passar o comando url que estará acompanhado do  nome da
 nossa rota (definida no urls.py). A idéia é que ao clicar no titulo,
 o usuário volte para a página incial(index.html)-->
-<a href="{% url 'index'%}"><h1>Learning Log</h1></a>
+<a href="{% url 'index'%}">Learning Log</a> - 
+
+<!--Vamos criar um link para a página de tópicos, para isso, vamos
+novamente usar o comando em url do python e o nome da nossa rota
+definida na urls.py-->
+<a href="{% url 'topics'%}">Tópicos</a>
 
 
 <!--Este trecho define um bloco de conteúdo em um template Django.

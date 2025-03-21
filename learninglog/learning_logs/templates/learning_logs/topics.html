@@ -27,7 +27,15 @@ base.html que contém o contéudo que deverá aparecer em todas as páginas do s
             <!--Lista que ira apresentar os dados da tabela Topic.
             Em Django, quando queremos ler uma variável python,
             abrimos 2 chaves e escrevemos o nome dessa variável-->
-            <li>{{topic}}</li>
+            <li>
+                
+                <!--Vamos criar um link para as entradas de cada tópico, para isso, vamos usar o comando url com  nome da nossa
+                rota e a coluna id(argumento do método view.py que irá
+                conter os ids das entradas cadastradas no banco de
+                dados).-->
+                <a href="{% url 'topic' topic.id%}">{{topic}}</a>
+
+            </li>
 
         <!--O empty significa vázio e irá mostrar um texto padrão
         caso não haja dados no dicionário topic.-->
