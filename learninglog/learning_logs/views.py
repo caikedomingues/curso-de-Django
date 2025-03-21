@@ -33,6 +33,28 @@ from django.shortcuts import render
 # o ponto) a classe (tabela) Topic.
 from .models import Topic
 
+# Import da classe TopicForm do arquivo forms.py que irá 
+# possibilitar a criação e manipulação de formulários web
+# Observação: Usamos o ponto para importar arquivos que estão
+# no mesmo diretório.
+from .forms import TopicForm
+
+# Esta linha importa a classe HttpResponseRedirect do módulo
+# django.http. É uma classe do Django usada para redirecionar
+# o navegador do usuário para uma URL diferente. Quando você
+# deseja que o usuário seja levado para outra página após uma
+# ação (como enviar um formulário com sucesso), nós usamos
+# o HttpResponseRedirect.
+from django.http import HttpResponseRedirect
+
+# Esta linha importa a função reverse do módulo django.urls.
+# Essa função permite gerar URLS a partir dos nomes das suas
+# views (funções e classes que lidam com as requisições). Em
+# vez de codificarmos URLS diretamente no código, usamos o
+# reverse para gerar URLS dinamicamente, o que torna nosso
+# código mais flexivel e fácil de manter.
+from django.urls import reverse
+
 # Create your views here.
 
 # def index(request): Esta linha define a função chamada index.
@@ -112,3 +134,56 @@ def topic(request, topic_id):
         # Retorno com a renderização do Template Html contendo a 
         # requisição, o caminho para o arquivo (em templates/learning_logs) e o dicionário com os valores
         return render(request, 'learning_logs/topic.html', context)
+
+# Função que irá verificar se a requisição POST (inserção de dados
+# no servidor) foi realizada com sucesso. A função ira receber apenas
+# o request como argumento para realizar a requisição.
+def new_topic(request):
+    
+    """Adiciona um novo assunto."""
+    
+    # Basicaente iremos verificar se o método da requisição é diferente
+    # de um método POST
+    if request.method != 'POST':
+        
+        # nenhum dado submetido, cria um formulário 
+        # em branco
+        # Se o if for verdadeiro o Django irá instanciar um formulário
+        # em branco.
+        form = TopicForm()
+    
+    # Se o Metodo da requisição for um POST vamos processar a inserção
+    # dos dados no banco.
+    else:
+        
+        # Dados do POST submetidos, processa os dados
+        
+        # Iremos instanciar o formulário com o método POST do
+        # argumento request (para inserir os dados)
+        form = TopicForm(request.POST)
+        
+        # Aqui, vamos verificar se o tipo do dado que será inserido
+        # é do tipo válido, ou seja, se o tipo do campo é condizente
+        # com o dado informado pelo usuário
+        if form.is_valid():
+            
+            # Se a validação estiver correta iremos salvar dados e concluir o envio da requisoção POST.
+            form.save()
+            
+            # Esta parte cria uma instância de HttpResponseRedirect e 
+            # a retorna. Isso instrui o Django a enviar uma resposta
+            # de redirecionamento para o navegador do usuário.
+            # O reverse serve para gerar a URL para a view chamada
+            # 'topics' (nome da URL criada no arquivo urls.py). O
+            # Django procura por uma URL com esse nome e retorna 
+            # a URL correspondente.
+            return HttpResponseRedirect(reverse('topics'))
+    
+    # Dicionário que irá receber os valores do formulário gerado
+    # no template HTML.
+    context = {'form': form}
+    
+    # Função que irá renderizar o template HTML, realizar as requisições e possibilitar o uso do dicionário context
+    return render(request, 'learning_logs/new_topic.html', context)
+    
+    
