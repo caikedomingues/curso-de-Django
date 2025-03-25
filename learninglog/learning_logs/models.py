@@ -89,3 +89,6 @@ class Entry(models.Model):
         # return: Retorna os 50 primeiros valores do campo 
         # text_anotacao como representação em string da instância. Isso também permite que o dado apareça em formato de texto no painel administrativo 
         return self.text_anotacao[:50] + '...'
+
+
+

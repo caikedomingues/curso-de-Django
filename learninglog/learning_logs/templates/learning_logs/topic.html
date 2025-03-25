@@ -7,12 +7,18 @@ as páginas-->
 {%block content%}
     <!--Conteúdo espeicifico da página topic-->
 
-    <!--Vamos passar no titulo a variável topic(indice do
+    <!--Vamos passar no paragrafo a variável topic(indice do
     dicionário context que contem o  nome dos tópicos)-->
-    <h3>Tópico: {{topic}}</h3>
+    <p>Tópico: {{topic}}</p>
 
-    <p>Entradas:</p>
+    <p>Anotações:</p>
 
+
+    <p>
+       <!--Rota da view de new_entry que irá conter o id do tópico
+       que será relacionado com a anotação.-->
+        <a href="{%url 'new_entry' topic.id%}">Adicione uma nova anotação</a>
+    </p>
         <!--Agora vamos criar uma lista não ordenada que ira conter
         as entradas do tópico-->
         <ul>

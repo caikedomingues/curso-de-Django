@@ -1,0 +1,51 @@
+
+
+<!--Import do arquivo base.html que irá conter o conteúdo padrão de 
+todas as páginas-->
+
+{%extends 'learning_logs/base.html'%}
+
+
+
+{%block content%}
+
+    <!--Aqui teremos todo o conteúdo especifico da página de novas
+    entradas -->
+
+    <!--Ira criar um link para a página do tópico especifico-->
+    <p> <a href="{% url 'topic' topic_id %}"> {{ topic }}</a></p>
+
+
+
+    <p>Adicione uma nova anotação</p>
+
+<!--Criação do formulário que será disponibilizado para o usuário
+inserir novas anotações. O formuilário tera um método post que irá
+enviar os dados para a própria página (por isso, passamos para o action
+a rota da própria página).
+
+-->
+<form action = "{%url 'new_entry' topic_id%}" method = "post">
+
+    <!--Este trecho serve para tornar o formulário mais seguro,
+    já que ele irá filtrar os dados inseridos com o objetivo de
+    aceitar requisições apenas do nosso projeto.
+    O Django gera um token exclusivo para cada sessão do usuário.
+    Quando um formulário é renderizado, o {% csrf_token %} insere um campo oculto no formulário que contém esse token.
+    Quando o formulário é enviado, o Django verifica se o token enviado corresponde ao token da sessão do usuário.
+    Se os tokens corresponderem, o Django aceita a requisição. Caso contrário, ele a rejeita. Essas etapas são importantes para garantir
+    que as requisições venham realmente do seu site e não de outro site
+    malicioso.-->
+    {%csrf_token%}
+
+    <!--Irá formatar os dados inseridos pelo usuário-->
+    {{form.as_p}}
+
+    <!--Botão que irá enviar os dados para o banco.-->
+    <button name="submit" > Adicionar anotação</button>
+
+</form>
+
+
+
+{%endblock content%}

@@ -55,6 +55,10 @@ from django.http import HttpResponseRedirect
 # código mais flexivel e fácil de manter.
 from django.urls import reverse
 
+# Import da classe EntryForms do arquivo forms.py que irá criar
+# os formulários web
+from .forms import EntryForm
+
 # Create your views here.
 
 # def index(request): Esta linha define a função chamada index.
@@ -186,6 +190,94 @@ def new_topic(request):
     # Função que irá renderizar o template HTML, realizar as requisições e possibilitar o uso do dicionário context
     return render(request, 'learning_logs/new_topic.html', context)
 
+
+
+# Função que irá inserir novas anotações no banco de dados.
+# A função irá receber dois parametros: o request (para realizar
+# as requisições HTTP) e o topic_id (que será o id do tópico rela
+# cionado a anotação).
+def new_entry(request, topic_id):
     
+    """Acrescenta uma nova entrada para um assunto especifico"""
+    
+    # Como queremos relacionar a anotação com um tópico em especifico,
+    # vamos pegar o id do assunto escolhido
+    topic = Topic.objects.get(id=topic_id)
+    
+    # ira verificar se o método da requisição é diferente
+    # do POST (Metodo para inserção de dados no servidor).
+    if request.method != 'POST':
+        
+        # Nesse caso nenhum dado será submetido, iremos 
+        # apenas criar o formulário em branco
+        
+        form = EntryForm()
+    
+    # Se a requisição for um POST
+    else:
+        
+        # EntryForm: classe do formulário que será criado no projeto.
+        
+        # request.POST: Requisição post que irá inserir dados no banco 
+        # de dados.
+        
+        # data: Como esse formulário não estará completo, vamos 
+        # atribuir a função em uma vraiável, para que o POST
+        # não aconteça assim que instanciarmos o formulário. 
+        form = EntryForm(data = request.POST)
+        
+        # Irá verificar se o tipo dos dados informados é 
+        # condizente com o tipo definido no formulário, ou seja,
+        # ele verifica se os dados estão de acordo com as regras
+        # definidas na classe EntryForms        
+        if form.is_valid():
+            
+            # Se esse if for verdadeiro, este método save cria uma
+            # nova instância do modelo de banco de dados associado
+            # ao formulário, preenchendo os campos do modelo com os
+            # dados do formulário. O argumento commit=False instrui
+            # o Django a não salvar a nova entrada no banco de dados
+            # imediatamente. Isso permite que você faça modificações
+            # adicionais na instância do modelo antes de salva-la.
+            # Isso nos permitira associar a anotação ao assunto, já
+            # que a modificação adicional será justamente a relação 
+            # da anotação com um tópico antes de salvar os dados.
+            new_entry = form.save(commit=False)
+            
+            # Esta linha adiciona um valor ao campo topic da nova entrada. A variável tópic representa o tópico ao qual a
+            # nova anotação pertence. Isso é muito importante para 
+            # estabelecer o relacionamento entre entrada e tópico
+            new_entry.topic = topic
+            
+            # Após todas as modificações adicionais, o save irá
+            # salvar os dados no banco de dados
+            new_entry.save()
+
+            # HttpResponseRedirect: Esta função cria uma resposta HTTP
+            # que redireciona o navegador de usuário para a URL gerada
+            # pela função reserve. Isso significa que, após salvar a
+            # nova entrada, o usuário é redirecionado para a página do
+            # tópico ao qual a entrada foi adicionada.
+            
+            # reverse('topic', args=[topic_id]): Esta função inverte
+            # o nome da URL 'topic' para a URL correspondentes, usando
+            # o topic_id fornecido como argumento. Isso gera a URL para
+            # a página de detalhes do tópico.
+            return HttpResponseRedirect(reverse('topic', args=[topic_id]))
+    
+    # Dicionário que irá possibilitar o nosso acesso aos dados no
+    # template HTML.
+    context = {'topic':topic, 'form':form, 'topic_id':topic_id}
+    
+
+    
+    # Retorno do método que irá conter a requisição POST, o caminho
+    # da página de novas entradas e o dicionário com os dados das tabelas
+    return render(request, 'learning_logs/new_entry.html', context)
+            
+    
+    
+    
+
     
     

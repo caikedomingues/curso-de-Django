@@ -38,9 +38,16 @@ urlpatterns = [
     # que irá armazenar esses valores.
     path('topic/<topic_id>/', views.topic, name='topic'),
     
-     # Vamos criar a rota do nosso formulário criado no arquivo
-    # forms.py
+     # Vamos criar a rota do nosso formulário de inserção
+     #  de tópicos criado no arquivo forms.py
     path('new_topic', views.new_topic, name='new_topic'),
+    
+    # Criação da rota do nosso formulário de anotações dos
+    # tópicos: Nesse caso, a nossa rota irá conter uma 
+    # variável que irá representar o tópico que a anotação
+    # irá pertencer.
+    
+    path('new_entry/<topic_id>/', views.new_entry, name='new_entry'),
     
     
     
