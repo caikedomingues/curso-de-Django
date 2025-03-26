@@ -31,6 +31,9 @@ as páginas-->
                     entry contendo a data e o texto formatados.-->
                     <p>{{entry.date_add | date:'M d, Y H: i'}}</p>
                     <p>{{entry.text_anotacao | linebreaks}}</p>
+
+                    <!--Criação do link para a página do tópico que terá as suas anotações atualizadas.-->
+                    <p><a href="{%url 'edit_entry' entry.id%}">Editar anotação</a></p>
                </li>
             
             <!--Caso o dicionário esteja vázio, vamos imprimir uma mensagem padrão-->

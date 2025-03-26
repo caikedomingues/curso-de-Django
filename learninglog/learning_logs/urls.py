@@ -46,8 +46,13 @@ urlpatterns = [
     # tópicos: Nesse caso, a nossa rota irá conter uma 
     # variável que irá representar o tópico que a anotação
     # irá pertencer.
-    
     path('new_entry/<topic_id>/', views.new_entry, name='new_entry'),
+    
+    # Criação da rota para o template de atualização das anotações
+    # inseridas no banco de dados.
+    path('edit_entry/<entry_id>/', views.edit_entry, name='edit_entry'),
+    
+    
     
     
     

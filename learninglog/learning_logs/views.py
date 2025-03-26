@@ -33,6 +33,12 @@ from django.shortcuts import render
 # o ponto) a classe (tabela) Topic.
 from .models import Topic
 
+# Import do arquivo que contem o banco de dados. Basicamete
+# estamos dizendo que queremos acessar dentro do arquivo
+# models(que esta dentro de learning_log, por isso usamos
+# o ponto) a classe (tabela) Entry.
+from .models import Entry
+
 # Import da classe TopicForm do arquivo forms.py que irá 
 # possibilitar a criação e manipulação de formulários web
 # Observação: Usamos o ponto para importar arquivos que estão
@@ -274,7 +280,64 @@ def new_entry(request, topic_id):
     # Retorno do método que irá conter a requisição POST, o caminho
     # da página de novas entradas e o dicionário com os dados das tabelas
     return render(request, 'learning_logs/new_entry.html', context)
+
+
+# Função que irá renderizar o formulário que terá como objetivo
+# atualizar as anotações dos tópicos. A função receberá 2 argumentos
+# o request (que irá executar as requisições no servidor) e o entry_id
+# que irá identificar qual anotação estamos atualizando.
+def edit_entry(request, entry_id):
+    
+    """Edita uma entrada existente"""
+    
+    # Ira coletar o id da anotação que será atualizada
+    entry = Entry.objects.get(id=entry_id)
+    
+    # Como a tabela topic é chave estrangeira da tabela entry
+    # Vamos relacionar as 2 tabelas para identificarmos os tópicos
+    # que pertencem as anotações.
+    topic = entry.topic
+    
+    # Verificação da requisição: Se a requisição for diferente de um
+    # post
+    if request.method != 'POST':
+        
+        # Cria uma instância do formulário EntryForm e a inicializa com
+        # os dados do objeto entry existente. Isso preenche o formulário
+        # com os valores atuais da anotação, permitindo que o usuário os 
+        # edite.
+        form = EntryForm(instance=entry)
+    
+    # Se a requisição for um post, o sistema salavará no banco de dados
+    # as atualizações feitas pelos usuários.
+    else:
+        
+        # Cria uma instância do formulário EntryForm, inicializando-a  com os dados do objeto entry existente e os dados enviados pelo usuário via request.POST.
+        form = EntryForm(instance=entry, data=request.POST)
+        
+        # Irá verificar se os dados estão condizentes com as regras
+        # definidas na classe EntryForm
+        if form.is_valid():
             
+            # Irá salvar os dados no banco de dados 
+            form.save()
+
+            # Redireciona o usuário de volta para a página do tópico
+            # (topic) ao qual a anotação pertence, exibindo as alterações
+            # salvas.
+            # Reverse: Gera a url para a view 'topic' com o id do tópico
+            # como argumento
+            return HttpResponseRedirect(reverse('topic', args=[topic.id]))
+
+    # Dicionário que irá possibilitar que o template HTML acesse as
+    # variáveis definidas na view
+    context = {'entry':entry, 'topic':topic, 'form': form} 
+    
+    # Retorno da função render que irá conter a requisição, a rota
+    # pro template HTML e o dicionário context
+    return render(request, 'learning_logs/edit_entry.html', context)
+
+
     
     
     

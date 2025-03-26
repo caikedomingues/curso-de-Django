@@ -1,0 +1,33 @@
+
+
+<!--Import do arquivo base que irá conter o conteúdo padrão de todas as páginas-->
+
+{%extends 'learning_logs/base.html'%}
+
+
+{%block content%}
+
+    <!--Nessa parte, iremos definir todo o conteúdo especifico
+    dessa página.-->
+
+    <!--Link para o tópico terá que as anotações modificadas-->
+    <p><a href="{%url 'topic'  topic.id%}">{{topic}}</a></p>
+
+    <p>Editar anotação: </p>
+
+    <!--Criação do formulário  que irá atualizar as informações:
+    Ele enviára os dados para a própria página e terá como método
+    o post que tem como finalidade enviar os dados para o servidor-->
+    <form action = "{%url 'edit_entry' entry.id%}" method="post">
+
+        <!--Irá garantir que todas as requisições sejam apenas do nosso sistema-->
+        {% csrf_token %}
+
+        <!--Ira formatar os dados enviados pelos usuários-->
+        {{form.as_p}}
+
+        <!--Ira enviar criar o botão de envio de informações-->
+        <button name="submit">Salvar</button>
+
+    </form>
+{%endblock content%}
