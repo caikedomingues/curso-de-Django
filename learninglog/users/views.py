@@ -29,6 +29,30 @@ from django.urls import reverse
 # do sistema.
 from django.contrib.auth import logout
 
+# Import da função render do módulo django que tem como objetivo
+# renderizar/criar templates HTML. A função render do Django é usada para criar e retornar respostas HTTP que contêm o conteúdo de um template HTML renderizado.
+from django import render
+
+# Import da função login do módulo django.contrib.auth: A função
+# login é usada para iniciar uma sessão de usuário no Django. Ela
+# armazena as informações de autenticação do usuário na sessão, 
+# permitindo que o usuário acesse as áreas protegidas do sistema.
+from django.contrib.auth import login
+
+# Import da função authenticate do módulo django.contrib.auth:
+# A função authenticate é usada para verificar as credenciais de
+# um usuário (geralmente nome de usuário e senha) em relação ao banco de # dados do usuário do django. Se as credenciais forem válidas,
+# authenticate retorna um objeto de usuário; caso contrário, retorna None.
+from django.contrib.auth import authenticate
+
+# Import da classe UserCreationForm do módulo django.contrib.auth:
+# UserCreationForm é um formulário pré-construido fornecido pelo
+# Django que simplifica a criação de novos usuários no sistema.
+# Ele inclui campos para nome de usuário e senha (e, opcionalmente,
+# outros campos, dependendo da configuração do seu projeto). Este
+# formulário já realiza a validação dos dados inseridos pelo usuário,
+# como por exemplo, verificar se de usuário existe.
+from django.contrib.auth import UserCreationForm
 
 # Criação da view que irá encerrar a sessão do usuário. A função
 # irá receber como argumento apenas o request que lida com requisi
@@ -44,3 +68,52 @@ def logout_view(request):
     # Após encerrar a sessão do usuário, o Http Response irá encaminha-lo
     # para a página inicial.
     return HttpResponseRedirect(reverse('index'))
+
+
+
+# Criação da view que irá ser responsável por realizar inserções
+# (requisições posts) de novos usuários no sistema. A função irá
+# receber como parametro o request que realiza as requisições.
+def register(request):
+    
+    """Registra um novo usuário"""
+    
+    # Verificando se a requisição feita é diferente do método POST,
+    # que irá significar que é a primeira vez que o usuário estara
+    # acessando a página.  
+    if request.method != 'POST':
+        
+        # Cria\instãncia um formulário em branco. Esse formulário é usado para exibir os campos de registro (nome de usuário e senha)
+        form = UserCreationForm()
+    
+    # Caso a requisição seja do tipo POST (inserção de dados)
+    else:
+        
+        # Cria uma instância do formulário UserCreationForm com os dados
+        # enviados pelo usuário(armazenados em request.POST). Lembrando
+        # que a variavel data possibilita a realização de validações
+        # adicionais antes de enviar os dados.
+        form = UserCreationForm(data=request.POST)
+        
+        # Ira verificar se os dados passados são condizentes com as
+        # regras definidas no forms.py
+        if form.is_valid():
+            
+            # Atribuindo os dados salvos a uma variável
+            new_user = form.save()
+            
+            # Autentica o usuário recém-criado usando a função authenticate. Os argumentos especificam os dados
+            # inseridos pelos usuários.
+            authenticated_user = authenticate(username=new_user.username, password=request.POST['password1'])
+            
+            # Redireciona o usuário para a página inicial após o registro bem-sucedido.
+            return HttpResponseRedirect(reverse('index'))
+    
+    # Dicionário que irá possibilitar que o template HTML acesse
+    # a variável da view   
+    context = {'form': form}
+    
+    # Retorno da renderização com a requisição, o caminho do template
+    # HTML e o dicionário context.
+    return render(request, 'users/register.html', context)
+     

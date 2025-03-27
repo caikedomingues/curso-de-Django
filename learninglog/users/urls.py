@@ -34,8 +34,10 @@ urlpatterns = [
     # não precisamos copiar a URL inteira.
     path('login', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),
     
-    
     # Criação da rota para a view de logout
-    
     path('logout', views.logout_view, name='logout'),
+    
+    # Criação da rota para view de criação de novos registros
+    path('register', views.register, name='register'),
+    
 ]   
