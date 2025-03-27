@@ -1,0 +1,49 @@
+
+
+<!--Apesar do arquivo base estar em outra pasta, podemos importa-la nesse app usando o caminho completo da rota-->
+{% extends "learning_logs/base.html"%}
+
+
+
+{%block content%}
+
+    <!--Aqui teremos o conteúdo especifico da página de login-->
+
+    <!--Verificação do login: Esta tag de template do Django que 
+    verifica se o formulário (representado pela variável forms )
+    contém erros. forms.errors é um atributo que contém um dicio
+    nário de erros de validação do formulário. Se o dicionário
+    não estiver vázio, significa que o formulário contém erros.-->
+    {%if forms.errors %}
+
+        <!--Caso o errors encontre algum tipo de erro, a estrutura
+        if apresentará essa mensagem-->
+        <p>Seu login e senha estão incorretos. Por favor tente novamente</p>
+    
+    <!--Fim da estrutura if-->
+    {%endif%}
+
+
+    <!--Criação do formulário de login. Os inputs de login e senha  serão construidos pelo método login view. O formulárioirá enviar
+    os dados para a própria página  (por isso passamos a rota do
+    template login) e terá como método de requisição o post-->
+    <form action="{%url 'login'%}" method = "post">
+
+        <!--Comando que irá controlar as requisições do formulário
+        com o objetivo de garantir que as requisições sejam feitas
+        apenas pelo nosso sistema.-->
+        {% csrf_token %}
+
+        <!--Irá formatar os dados enviados pelo usuário-->
+        {{form.as_p}}
+
+        <!--Botão que irá enviar os dados de login-->
+        <button name="submit">Entrar</button>
+
+        <!--Input do tipo hidden (input invisivel) que irá receber
+        o name next com o objetivo de ir para a página index, caso
+        o usuário realize corretamente o login.-->
+        <input type="hidden" name="next" value="{%url 'index'%}">
+    </form>
+
+{%endblock content%}

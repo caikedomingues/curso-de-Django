@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     # do settings, no nosso caso vamos
     # adicionar o app que criamos.
     'learning_logs',
+    'users',
 ]
 
 MIDDLEWARE = [

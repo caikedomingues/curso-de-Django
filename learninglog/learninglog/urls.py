@@ -41,10 +41,14 @@ urlpatterns = [
     # Aqui basicamente vamos adicionar o caminho do aplicativo 
     # como padrão, ou seja, quando a  raiz não tiver mais 
     # nada após a barra, o sistema ira direcionar o django
-    # para o nosso sistema. Para realizae essa ação, primeiro
+    # para o nosso sistema. Para realizar essa ação, primeiro
     # vamos verificar se a url está vazia, caso ela esteja vazia
     # iremos passar para o include o caminho do arquivo urls.py
     # da pasta do aplicativo leaning.logs. 
-    path('', include('learning_logs.urls'))
+    path('', include('learning_logs.urls')),
+    
+    # Adicionando o caminho das rotas do users. Dessa vez, o
+    # caminho raiz do app terá o nome do app.
+    path('users/', include('users.urls')),
    
 ]

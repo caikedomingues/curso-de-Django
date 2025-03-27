@@ -5,17 +5,37 @@ queremos exibir em todas as páginas. O conceito é parecido com
 a orientação a objetos, onde esse arquivo será a classe mãe 
 e todos os outros arquivos irão herdar o conteúdo desse arquivo-->
 
-<!--No Django quando queremos passar instruções em python utilizamos
-as chaves e porcentagens com o comando que queremos passar. No nosso
-caso, vamos passar o comando url que estará acompanhado do  nome da
-nossa rota (definida no urls.py). A idéia é que ao clicar no titulo,
-o usuário volte para a página incial(index.html)-->
-<a href="{% url 'index'%}">Learning Log</a> - 
 
-<!--Vamos criar um link para a página de tópicos, para isso, vamos
-novamente usar o comando em url do python e o nome da nossa rota
-definida na urls.py-->
-<a href="{% url 'topics'%}">Tópicos</a>
+<p>
+
+    <!--No Django quando queremos passar instruções em python utilizamos
+    as chaves e porcentagens com o comando que queremos passar. No nosso
+    caso, vamos passar o comando url que estará acompanhado do  nome da
+    nossa rota (definida no urls.py). A idéia é que ao clicar no titulo,
+    o usuário volte para a página incial(index.html)-->
+    <a href="{% url 'index'%}">Learning Log</a> - 
+
+    <!--Vamos criar um link para a página de tópicos, para isso, vamos
+    novamente usar o comando em url do python e o nome da nossa rota
+    definida na urls.py-->
+    <a href="{% url 'topics'%}">Tópicos</a>
+
+    <!--Nesta parte, vamos verificar se a um usuário logado no sistema.Para isso, vamos usar o método is_authenticated que tem como objetivo verificar há existência de usuários autenticados no sistema-->
+    {%if user.is_authenticated%}
+
+        <!--Se o sistema estiver usuários logados, iremos apresentar
+        uma mensagem utilizando o nome do usuário (vamos usar o .username que captura o nome do usuário logado)-->
+        Olá, {{user.username}}
+    
+    <!--Se não estiver usuários logados, vamos mostrar a url que 
+    irá encaminhar o usuário para o template de login-->
+    {% else %}
+
+        <!--Rota para o template de login-->
+        <a href="{%url 'login'%}">Entrar</a>
+    
+    {%endif%}
+</p>
 
 
 <!--Este trecho define um bloco de conteúdo em um template Django.
