@@ -13,6 +13,10 @@ from django.urls import path
 # de usuários.
 from django.contrib.auth import views as auth_views
 
+# Import do aqruivo que conterá todas as views que as urls (definidas
+# aqui) deverão acessar.
+from . import views
+
 # Lista que armazena todas as rotas do aplicativo users
 urlpatterns = [
     
@@ -30,4 +34,8 @@ urlpatterns = [
     # não precisamos copiar a URL inteira.
     path('login', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),
     
+    
+    # Criação da rota para a view de logout
+    
+    path('logout', views.logout_view, name='logout'),
 ]   

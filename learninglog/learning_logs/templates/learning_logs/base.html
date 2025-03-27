@@ -26,6 +26,11 @@ e todos os outros arquivos irão herdar o conteúdo desse arquivo-->
         <!--Se o sistema estiver usuários logados, iremos apresentar
         uma mensagem utilizando o nome do usuário (vamos usar o .username que captura o nome do usuário logado)-->
         Olá, {{user.username}}
+
+        <!--Como ja criamos o logout na view do user, vamos agora
+        só criar o link que irá acessar a rota da view de logout-->
+
+        <a href="{%url 'logout'%}">Sair</a>
     
     <!--Se não estiver usuários logados, vamos mostrar a url que 
     irá encaminhar o usuário para o template de login-->
