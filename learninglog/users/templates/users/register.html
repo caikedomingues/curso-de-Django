@@ -1,0 +1,34 @@
+
+
+<!--Iremos extender o arquivo base que irá conter o conteúdo padrão
+das páginas-->
+
+{%extends 'learning_logs/base.html'%}
+
+{%block content%}
+
+    <!--Aqui iremos definir o conteúdo especifico da página-->
+
+    <!--Formulário que irá cadastrar novos registros: O formulário
+    irá enviar os dados para a própria página (por isso, passei
+    a página como url do action). O formulário  terá o método post
+    para enviar os dados para o banco.-->
+    <form action="{%url 'register' %}" method="post">
+
+        <!--Irá garantir que todas as requisções ao servidor
+        venham do nosso próprio site.-->
+        {%csrf_token%}
+
+        <!--exibe os campos do formulário como parágrafos-->
+        {{form.as_p}}
+
+        <!--Ira criar o botão que envia os dados para o banco-->
+        <button name="submit">Registrar</button>
+
+        <!--Ira criar um input "invisivel" (hidden) que irá 
+        conter um link para a página inicial após o envio dos
+        dados.-->
+        <input type="hidden" name="next" value="{%url 'index'%}"> 
+    </form>
+    
+{%endblock content%}

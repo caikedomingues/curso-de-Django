@@ -33,11 +33,14 @@ e todos os outros arquivos irão herdar o conteúdo desse arquivo-->
         <a href="{%url 'logout'%}">Sair</a>
     
     <!--Se não estiver usuários logados, vamos mostrar a url que 
-    irá encaminhar o usuário para o template de login-->
+    irá encaminhar o usuário para um dos templates abaixo-->
     {% else %}
 
         <!--Rota para o template de login-->
         <a href="{%url 'login'%}">Entrar</a>
+
+        <!--Rota para a página de criação de novos registros-->
+        <a href="{%url 'register'%}">Registrar</a>
     
     {%endif%}
 </p>

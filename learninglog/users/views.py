@@ -31,7 +31,7 @@ from django.contrib.auth import logout
 
 # Import da função render do módulo django que tem como objetivo
 # renderizar/criar templates HTML. A função render do Django é usada para criar e retornar respostas HTTP que contêm o conteúdo de um template HTML renderizado.
-from django import render
+from django.shortcuts import render
 
 # Import da função login do módulo django.contrib.auth: A função
 # login é usada para iniciar uma sessão de usuário no Django. Ela
@@ -52,7 +52,7 @@ from django.contrib.auth import authenticate
 # outros campos, dependendo da configuração do seu projeto). Este
 # formulário já realiza a validação dos dados inseridos pelo usuário,
 # como por exemplo, verificar se de usuário existe.
-from django.contrib.auth import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm
 
 # Criação da view que irá encerrar a sessão do usuário. A função
 # irá receber como argumento apenas o request que lida com requisi
@@ -105,6 +105,9 @@ def register(request):
             # Autentica o usuário recém-criado usando a função authenticate. Os argumentos especificam os dados
             # inseridos pelos usuários.
             authenticated_user = authenticate(username=new_user.username, password=request.POST['password1'])
+            
+            # Irá usar o objeto request e o usuário autenticado para #iniciar a sessão do usuário (login) após o registro.
+            login(request, authenticated_user)
             
             # Redireciona o usuário para a página inicial após o registro bem-sucedido.
             return HttpResponseRedirect(reverse('index'))
