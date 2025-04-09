@@ -65,6 +65,15 @@ from django.urls import reverse
 # os formulários web
 from .forms import EntryForm
 
+# import da função login_requered do modulo contrib.auth.decorators
+# Essa função permite que você bloqueie visualizações (views) que
+# exigem que o usuário esteja autenticado(logado). Um decorador
+# (decorators) em python é uma forma de modificar o comportamento
+# de uma função. No Django, usamos decoradores para adicionar
+# funcionalidades extras as views sem precisar precisar alterar
+# seu código interno.
+from django.contrib.auth.decorators import login_required
+
 # Create your views here.
 
 # def index(request): Esta linha define a função chamada index.
@@ -88,6 +97,14 @@ def index(request):
     # Retorna uma resposta HTTP contendo o HTML renderizado.
     return render(request, 'learning_logs/index.html')
 
+
+# Para utilizar a função basta, eu dar um @login_required 
+# em cima das funções que eu quero restringir. O login_required
+# basicamente verifica se o usuário está logado. Se não estiver,
+# o django redireciona automaticamente o usuário para a página de
+# login(que no nosso caso sera a rota /users/login que definimos no
+# settings.py na raiz do projeto, a pasta learninglog).
+@login_required
 
 # Função que irá renderizar o template html que irá conter os tópicos
 # cadastrados no banco de dados. Vale lembrar que por padrão os métodos
@@ -113,8 +130,8 @@ def topics(request):
     # renderizar a página HTML.Também retornaremos a variável context com
     # o objetivo de mostrar os seus valores na página.
     return render(request, 'learning_logs/topics.html', context)
-    
-    
+
+@login_required
 # função que ira renderizar a página de tópicos especificos, só que
 # dessa vez ela recebera 2 aegumentos: o request (para requisições) e
 # o topic_id (que irá armazenar o id informado na rota)
@@ -145,6 +162,7 @@ def topic(request, topic_id):
         # requisição, o caminho para o arquivo (em templates/learning_logs) e o dicionário com os valores
         return render(request, 'learning_logs/topic.html', context)
 
+@login_required
 # Função que irá verificar se a requisição POST (inserção de dados
 # no servidor) foi realizada com sucesso. A função ira receber apenas
 # o request como argumento para realizar a requisição.
@@ -196,8 +214,7 @@ def new_topic(request):
     # Função que irá renderizar o template HTML, realizar as requisições e possibilitar o uso do dicionário context
     return render(request, 'learning_logs/new_topic.html', context)
 
-
-
+@login_required
 # Função que irá inserir novas anotações no banco de dados.
 # A função irá receber dois parametros: o request (para realizar
 # as requisições HTTP) e o topic_id (que será o id do tópico rela
@@ -282,6 +299,7 @@ def new_entry(request, topic_id):
     return render(request, 'learning_logs/new_entry.html', context)
 
 
+@login_required
 # Função que irá renderizar o formulário que terá como objetivo
 # atualizar as anotações dos tópicos. A função receberá 2 argumentos
 # o request (que irá executar as requisições no servidor) e o entry_id

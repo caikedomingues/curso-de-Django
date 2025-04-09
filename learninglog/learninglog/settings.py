@@ -132,3 +132,9 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# Url que o login_required irá encaminhar o usuário caso ele não
+# esteja logado
+
+LOGIN_URL = '/users/login'
