@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale 1.0">
+
+        <meta http-equiv="X-UA Compatible" content="IE-edge">
+        <title>Introdução ao Bootstrap</title>
+
+        <!--Link que irá se conectar ao CDN do bootstrap. Dessa maneira, não precisaremos
+        criar a estilização do sistema do zero, pois, o bootstrap irá desenvolver boa 
+        parte da estilização.O Bootstrap é uma framework de CSS que oferece um conjunto de estilos prontos, componentes de interface e utilitários para ajudar no desenvolvimento da interface do usuário de forma rápida e responsiva. Usando o CDN, você evita a necessidade de baixar o arquivo e inclui diretamente no seu código, o que facilita a manutenção e o carregamento do projeto.
+        -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+    </head>
+
+    <body>
+
+
+        <!--Container que será gerado pelo bootstrap-->
+        <div class="container p-3 mb-2 bg-primary text-white">
+
+            <!--Aqui iremos colocar o conteúdo que queremos criar dentro do container.-->
+            teste
+        </div>
+
+        <!--Containeres responsivos gerados pelo bootstrap-->
+        <div class="container-sm p-3 mb-2 bg-primary text-white">100% wide until small breakpoint</div>
+        <div class="container-md p-3 mb-2 bg-primary text-white">100% wide until medium breakpoint</div>
+        <div class="container-lg p-3 mb-2 bg-primary text-white">100% wide until large breakpoint</div>
+        <div class="container-xl p-3 mb-2 bg-primary text-white">100% wide until extra large</div>
+        <div class="container-xxl p-3 mb-2 bg-primary text-white">100% wide until extra extra large breakpoint</div>
+
+        <div class="container-fluid">Teste 2</div>
+          
+
+        <!--O link do JavaScript do Bootstrap tem como objetivo incluir
+        a parte interativa e dinâmica do bootstrap no seu projeto. Alguns recursos do do Bootstrap como modais, carrosséis, tooltips, popovers e menus dropdown, dependem do JavaScript para funcionar
+        corretamente. Ou seja, os componentes que possuem interatividade precisam do javascript do Bootstrao para serem ativados.
+        Exemplos de funcionalidades que precisam do JavaScript do Bootstrap:
+
+        Modais: Janelas pop-up para mostrar informações ou formulários.
+
+        Carrosséis: Sliders de imagens que rodam automaticamente ou através de interações do usuário.
+
+        Dropdowns: Menus suspensos que abrem quando o usuário clica em um botão ou link.
+
+        Tooltips e popovers: Caixas de texto que aparecem quando o usuário passa o mouse sobre um elemento.
+
+        Collapse: Elementos que podem ser expandidos ou colapsados (por exemplo, painéis de acordeão).
+        -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
+
+    </body>
+</html>
