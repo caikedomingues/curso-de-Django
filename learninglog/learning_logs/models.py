@@ -1,5 +1,16 @@
 from django.db import models
 
+# Import da classe User do módulo contrib.auth.models: A classe
+# User vem com um sistema de autenticação pronto, que já fornece
+# um modelo de usuário (user) com campos e funcionalidades essenciais
+# como: username, password, email, first_name, last_name, set_password(),
+# check_password(), is_authenticated, entre outros.
+# Essa classe é usada quando você quer trabalhar com usuários
+# no projeto Django - por exemplo: Criar usuários novos, fazer login
+# ou logout, verificar permissões, relacionar dados a usuário em outras
+# tabelas(com o ForeignKey), fazer autenticação com django.contrib.auth
+from django.contrib.auth.models import User
+
 # Create your models here.
 
 # Esse arquivo serve para manipular o banco de dados da
@@ -25,6 +36,14 @@ class Topic(models.Model):
     # da classe models. Basicamente ira criar a coluna que
     # contém a data da criação do tópico
     date_added = models.DateTimeField(auto_now_add=True)
+    
+    # Ira criar na classe uma chave estrangeira que irá relacionar
+    # a classe User com os tópicos adicionados no sistema. O objetivo
+    # desse trecho é associar o tópico ao usuário que o criou.
+    # O método CASCADE serve para garantir que se o usuário for
+    # apagado, todos os tópicos relacionados a ele também serão
+    # excluidos.
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
     
     # Em python, um método especial (também conhecido como "método mágico") define como um objeto deve ser representado como uma string.
     # No contexto do Django models, o método __str__ é usado para fornecer uma representação legivel por humanos de uma instância do modelo.O método __str__ permite que você controle como essas instâncias são exibidas quando você as imprime ou as exibe em outros contextos (como no painel de administração do Django).
