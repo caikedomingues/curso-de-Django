@@ -74,6 +74,15 @@ from .forms import EntryForm
 # seu código interno.
 from django.contrib.auth.decorators import login_required
 
+# Esse trecho está importando a exceção Http404 do módulo http: 
+# éssa exceção pode ser lançada no seu código quando não é encontrado
+# por exemplo, um objeto no banco de dados. Quando essa exceção é
+# levantada, o Django automaticamente exibe a página de erro 404,
+# que normalmente mostra algo como: "Page not found (404)".
+from django.http import Http404
+
+
+
 # Create your views here.
 
 # def index(request): Esta linha define a função chamada index.
@@ -117,7 +126,9 @@ def topics(request):
     # Variável que ira conter a classe Topic que terá como objetivo
     # chamar o método objects.order_by que irá receber como argumento
     # o nome da coluna que será o padrão de organização dos dados.
-    topics = Topic.objects.order_by('date_added')
+    # O filter ira filtrar os tópicos de acordo com o usuário, ou
+    # seja, só será apresentado o tópico do usuário logado.
+    topics = Topic.objects.filter(owner=request.user).order_by('date_added')
     
     # Após a organização dos dados, vamos criar um dicionário
     # que terá como objetivo mostrar os dados cadastrados na
@@ -143,6 +154,14 @@ def topic(request, topic_id):
         # usar o  método get que ira receber como argumento
         # a coluna id com o valor passado na rota.
         topic = Topic.objects.get(id = topic_id)
+        
+        # Esse if irá verificar se a requisição dos tópicos foi realizada
+        # pelo dono do tópico. 
+        if topic.owner != request.user:
+            # Se a requisição for de um usuário que não é dono do tópico,
+            # o django irá lançar a exceção e mostrar a página 404 
+            # padrão do django.
+            raise Http404
 
         # Como Topic é chave estrangeira da tabela Entry,
         # vamos usar a tabela topic para acessar a tabela 
@@ -195,8 +214,12 @@ def new_topic(request):
         # com o dado informado pelo usuário
         if form.is_valid():
             
+            new_topic = form.save(commit=False)
+            
             # Se a validação estiver correta iremos salvar dados e concluir o envio da requisoção POST.
-            form.save()
+            new_topic.owner = request.user
+            
+            new_topic.save()
             
             # Esta parte cria uma instância de HttpResponseRedirect e 
             # a retorna. Isso instrui o Django a enviar uma resposta
@@ -226,6 +249,14 @@ def new_entry(request, topic_id):
     # Como queremos relacionar a anotação com um tópico em especifico,
     # vamos pegar o id do assunto escolhido
     topic = Topic.objects.get(id=topic_id)
+    
+     # Esse if irá verificar se a requisição dos tópicos foi realizada
+        # pelo dono do tópico. 
+    if topic.owner != request.user:
+            # Se a requisição for de um usuário que não é dono do tópico,
+            # o django irá lançar a exceção e mostrar a página 404 
+            # padrão do django.
+            raise Http404
     
     # ira verificar se o método da requisição é diferente
     # do POST (Metodo para inserção de dados no servidor).
@@ -315,6 +346,15 @@ def edit_entry(request, entry_id):
     # Vamos relacionar as 2 tabelas para identificarmos os tópicos
     # que pertencem as anotações.
     topic = entry.topic
+    
+    # Ira verificar se a requisição foi feita pelo dono do tópico
+    if topic.owner != request.user:
+        
+         # Se a requisição for de um usuário que não é dono do tópico,
+        # o django irá lançar a exceção e mostrar a página 404 
+        # padrão do django.
+        
+        raise Http404
     
     # Verificação da requisição: Se a requisição for diferente de um
     # post
